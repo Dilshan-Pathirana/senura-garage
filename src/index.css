@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+  --dm-bg: 10 10 10;
+  --dm-surface: 20 20 20;
+  --dm-text: 245 245 245;
+  --dm-muted: 163 163 163;
+  --dm-accent: 255 122 0;
+
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--dm-bg));
+  color: rgb(var(--dm-text));
+}
+
+#root {
+  min-height: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+::selection {
+  background: rgb(var(--dm-accent) / 0.25);
+}
