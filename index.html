@@ -12,6 +12,20 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // GitHub Pages SPA fallback: if redirected from /404.html we land on /?p=<originalPath>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var p = params.get('p');
+        if (!p) return;
+        params.delete('p');
+        var newPath = decodeURIComponent(p);
+        var newSearch = params.toString();
+        var url = window.location.pathname.replace(/\/$/, '') + newPath;
+        if (newSearch) url += '?' + newSearch;
+        window.history.replaceState(null, '', url);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
