@@ -10,6 +10,10 @@ export default {
         muted: 'rgb(var(--dm-muted) / <alpha-value>)',
         accent: 'rgb(var(--dm-accent) / <alpha-value>)',
       },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Oswald', 'sans-serif'],
+      },
     },
   },
   plugins: [],

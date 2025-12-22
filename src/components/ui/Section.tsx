@@ -8,7 +8,7 @@ type SectionProps = PropsWithChildren<{
 
 export function Section({ className, id, children }: SectionProps) {
   return (
-    <section id={id} className={cn('py-14 sm:py-16', className)}>
+    <section id={id} className={cn('py-16 sm:py-24', className)}>
       {children}
     </section>
   )

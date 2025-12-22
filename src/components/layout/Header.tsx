@@ -22,10 +22,10 @@ export function Header() {
   )
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-bg/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-white/5 bg-bg/80 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-3">
-          <NavLink to="/" className="text-base font-black tracking-wide">
+          <NavLink to="/" className="text-lg font-heading font-bold uppercase tracking-wider">
             {site.name}
           </NavLink>
           <span className="hidden text-xs text-muted sm:inline">Jeep Modification Garage</span>
