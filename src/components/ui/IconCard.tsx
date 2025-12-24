@@ -11,12 +11,12 @@ export function IconCard({ title, icon, className, children }: IconCardProps) {
   return (
     <div
       className={cn(
-        'group relative overflow-hidden rounded-xl bg-surface/50 p-5 ring-1 ring-white/10 transition-all hover:bg-surface hover:ring-accent/50 hover:shadow-lg hover:shadow-accent/10',
+        'group relative overflow-hidden rounded-none border border-border bg-surface p-6 transition-all hover:translate-y-[-2px] hover:border-accent',
         className,
       )}
     >
       <div className="flex items-start gap-3">
-        <div className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 ring-1 ring-white/10 transition-colors group-hover:bg-accent/10 group-hover:text-accent">
+        <div className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-sm border border-border bg-bg transition-colors group-hover:border-accent">
           <span className="text-accent">{icon}</span>
         </div>
         <div className="min-w-0">

@@ -22,10 +22,10 @@ export function Header() {
   )
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/5 bg-bg/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-3">
-          <NavLink to="/" className="text-lg font-heading font-bold uppercase tracking-wider">
+          <NavLink to="/" className="text-2xl font-heading tracking-wide">
             {site.name}
           </NavLink>
           <span className="hidden text-xs text-muted sm:inline">Jeep Modification Garage</span>
@@ -59,7 +59,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 ring-1 ring-white/10 hover:bg-white/5 md:hidden"
+          className="inline-flex items-center justify-center rounded-none p-2 ring-1 ring-border/80 hover:bg-surface md:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((v) => !v)}
         >
@@ -68,7 +68,7 @@ export function Header() {
       </Container>
 
       {open ? (
-        <div className="border-t border-white/10 bg-bg">
+        <div className="border-t border-border bg-bg">
           <Container className="py-4">
             <div className="flex flex-col gap-3">
               {site.nav.map((l) => (

@@ -9,7 +9,7 @@ export function Footer() {
   const mapHref = googleMapsEmbedUrl(site.location.mapQuery).replace('&output=embed', '')
 
   return (
-    <footer className="border-t border-white/10 bg-bg">
+    <footer className="border-t border-border bg-bg">
       <Container className="py-10">
         <div className="grid gap-8 md:grid-cols-3">
           <div className="space-y-3">
@@ -50,7 +50,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-disabled={!site.social.facebookUrl}
-                className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm ring-1 ring-white/10 transition hover:bg-white/5 disabled:opacity-50"
+                className="inline-flex items-center gap-2 rounded-none border border-border bg-transparent px-3 py-2 text-sm transition hover:border-accent hover:bg-surface disabled:opacity-50"
               >
                 <Facebook className="h-4 w-4" /> Facebook
               </a>
@@ -59,7 +59,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-disabled={!site.social.instagramUrl}
-                className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm ring-1 ring-white/10 transition hover:bg-white/5 disabled:opacity-50"
+                className="inline-flex items-center gap-2 rounded-none border border-border bg-transparent px-3 py-2 text-sm transition hover:border-accent hover:bg-surface disabled:opacity-50"
               >
                 <Instagram className="h-4 w-4" /> Instagram
               </a>
@@ -70,7 +70,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-white/10 pt-6 text-xs text-muted">
+        <div className="mt-10 border-t border-border pt-6 text-xs text-muted">
           © {year} {site.name}. All rights reserved.
         </div>
       </Container>

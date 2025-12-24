@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, MapPin, MessageCircle, Phone, Shield, Wrench } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { ArrowRight, ChevronDown, MapPin, MessageCircle, Phone, Shield, Wrench } from 'lucide-react'
 import { Seo } from '../components/Seo'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
@@ -9,50 +8,13 @@ import { IconCard } from '../components/ui/IconCard'
 import { MotionInView } from '../components/ui/MotionInView'
 import { site, telHref, whatsappHref, googleMapsEmbedUrl } from '../config/site'
 import { Link } from 'react-router-dom'
-
-type Slide = {
-  id: string
-  headline: string
-  sub: string
-  bgClass: string
-}
+import { IndustrialGrid } from '../components/industrial/IndustrialGrid'
 
 export function Home() {
-  const slides: Slide[] = useMemo(
-    () => [
-      {
-        id: 's1',
-        headline: site.fullName,
-        sub: site.tagline,
-        bgClass:
-          'bg-[radial-gradient(circle_at_20%_20%,rgb(var(--dm-accent)/0.35),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(255,255,255,0.10),transparent_35%),linear-gradient(to_bottom,rgb(var(--dm-bg)),rgb(var(--dm-surface)))]',
-      },
-      {
-        id: 's2',
-        headline: 'Off-road protection. Lift kits. Builds.',
-        sub: 'Durable upgrades for Sri Lankan trails and daily driving.',
-        bgClass:
-          'bg-[radial-gradient(circle_at_70%_20%,rgb(var(--dm-accent)/0.25),transparent_45%),radial-gradient(circle_at_20%_80%,rgba(255,255,255,0.08),transparent_45%),linear-gradient(to_bottom,rgb(var(--dm-bg)),rgb(var(--dm-surface)))]',
-      },
-      {
-        id: 's3',
-        headline: 'Mechanical & repair you can trust',
-        sub: 'Brakes, gearbox, wiring, AC, and workshop-grade care.',
-        bgClass:
-          'bg-[radial-gradient(circle_at_30%_30%,rgb(var(--dm-accent)/0.22),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.06),transparent_45%),linear-gradient(to_bottom,rgb(var(--dm-bg)),rgb(var(--dm-surface)))]',
-      },
-    ],
-    [],
-  )
+  const { scrollYProgress } = useScroll()
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
+  const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
 
-  const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    const t = window.setInterval(() => setIndex((v) => (v + 1) % slides.length), 6000)
-    return () => window.clearInterval(t)
-  }, [slides.length])
-
-  const slide = slides[index]
   const mapEmbed = googleMapsEmbedUrl(site.location.mapQuery)
 
   return (
@@ -62,59 +24,47 @@ export function Home() {
         description="Premium Jeep modifications, custom off-road builds, performance upgrades, and mechanical repairs in Nittambuwa, Sri Lanka."
       />
 
-      <section className="relative overflow-hidden">
-        <div className={`absolute inset-0 ${slide.bgClass}`} />
-        <div className="absolute inset-0 bg-black/50" />
+      <section className="relative flex h-[calc(100vh-4rem)] items-center justify-center overflow-hidden border-b border-border">
+        <IndustrialGrid />
 
-        <Container className="relative py-20 sm:py-24">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={slide.id}
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.55, ease: 'easeOut' }}
-              className="max-w-3xl"
-            >
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-semibold text-muted ring-1 ring-white/10">
-                <MapPin className="h-3.5 w-3.5 text-accent" /> {site.location.addressLine}
-              </div>
+        <motion.div style={{ opacity: heroOpacity, scale: heroScale }} className="relative z-10 w-full">
+          <Container className="px-6 text-center">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
+              <span className="mb-6 inline-flex items-center gap-2 border border-accent/50 bg-accent/10 px-3 py-1 text-xs tracking-widest text-accent backdrop-blur-sm">
+                <MapPin className="h-3.5 w-3.5" /> {site.location.addressLine}
+              </span>
 
-              <h1 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">
-                {slide.headline}
+              <span className="mb-6 block text-[10px] font-mono uppercase tracking-widest text-muted">
+                System Status: Operational
+              </span>
+
+              <h1 className="mb-6 font-heading text-7xl leading-[0.85] tracking-tightest text-text md:text-9xl">
+                Dilini
+                <br />
+                <span className="bg-linear-to-r from-text to-muted bg-clip-text text-transparent">Motors</span>
               </h1>
-              <p className="mt-4 text-base text-muted sm:text-lg">{slide.sub}</p>
 
-              <p className="mt-6 max-w-2xl text-sm text-muted">
-                Suspension lift kits, off-road protection, wheel & tire upgrades, turbo tuning, engine rebuilds,
-                and reliable workshop repairs.
-              </p>
+              <p className="mx-auto mb-10 max-w-xl text-lg font-light text-muted">{site.tagline}</p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a href={telHref(site.contact.primaryPhone)} className="no-underline">
-                  <Button className="w-full sm:w-auto">
-                    <Phone className="h-4 w-4" /> Call
+              <Link to="/services" className="no-underline">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
+                  <Button className="px-8 py-4">
+                    Initialize Project <ArrowRight className="h-4 w-4" />
                   </Button>
-                </a>
-                <a
-                  href={whatsappHref(site.contact.primaryPhone, 'Hi Dilini Motors, I’d like to inquire about a service.')}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="no-underline"
-                >
-                  <Button variant="secondary" className="w-full sm:w-auto">
-                    <MessageCircle className="h-4 w-4" /> WhatsApp
-                  </Button>
-                </a>
-                <Link to="/services" className="no-underline">
-                  <Button variant="ghost" className="w-full sm:w-auto">
-                    View Services <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
+                </motion.div>
+              </Link>
             </motion.div>
-          </AnimatePresence>
-        </Container>
+          </Container>
+        </motion.div>
+
+        <motion.div
+          className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-muted"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+          <ChevronDown className="h-4 w-4" />
+        </motion.div>
       </section>
 
       <Section>
@@ -174,7 +124,7 @@ export function Home() {
               ].map((caption) => (
                 <div
                   key={caption}
-                  className="min-w-[280px] shrink-0 overflow-hidden rounded-xl bg-bg ring-1 ring-white/10"
+                  className="min-w-70 shrink-0 overflow-hidden rounded-none bg-bg ring-1 ring-border/80"
                 >
                   <div className="h-40 bg-[radial-gradient(circle_at_30%_30%,rgb(var(--dm-accent)/0.25),transparent_55%),linear-gradient(to_bottom,rgb(var(--dm-surface)),rgb(var(--dm-bg)))]" />
                   <div className="p-4">
@@ -206,7 +156,7 @@ export function Home() {
                   </Link>
                 </div>
               </div>
-              <div className="rounded-2xl bg-surface p-6 ring-1 ring-white/10">
+              <div className="border border-border bg-surface p-6">
                 <div className="text-sm font-bold">Why Choose Us</div>
                 <ul className="mt-3 space-y-2 text-sm text-muted">
                   <li>• Expert mechanics</li>
@@ -243,7 +193,7 @@ export function Home() {
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-2xl bg-bg ring-1 ring-white/10">
+              <div className="overflow-hidden border border-border bg-bg">
                 <iframe
                   title="Dilini Motors Map"
                   src={mapEmbed}
